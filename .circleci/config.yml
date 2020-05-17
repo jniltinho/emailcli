@@ -9,25 +9,29 @@ jobs:
           name: Check code format
           command: diff -u <(echo -n) <(gofmt -d ./)
       - run:
-          name: Build (linux)
+          name: Build (Linux 64Bits)
           command: |
-            GOOS=inux GOARCH=amd64 make EXE_NAME=email-cli_linux_amd64
+            GOOS=linux GOARCH=amd64 make EXE_NAME=email-cli_linux  
+       - run:
+          name: Build (FreeBSD 64Bits)
+          command: |
+            GOOS=freebsd GOARCH=amd64 make EXE_NAME=email-cli_freebsd
       - run:
           name: Test
           command: make test
       - run:
-          name: Build (mac)
+          name: Build (Mac 64Bits)
           command: |
             make build_mac
-            GOOS=darwin GOARCH=amd64 make EXE_NAME=email-cli_darwin_amd64
+            GOOS=darwin GOARCH=amd64 make EXE_NAME=email-cli_darwin
       - run:
-          name: Build (win)
+          name: Build (Windows 64Bits)
           command: |
-            GOOS=windows GOARCH=amd64 make EXE_NAME=email-cli_win_amd64.exe
+            GOOS=windows GOARCH=amd64 make EXE_NAME=email-cli_win.exe
       - run:
           name: "Publish Release on GitHub"
           command: |
-            mkdir pkg bin && cp -aR *amd* pkg/
+            mkdir pkg bin && cp -aR email* pkg/
             curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
             tar -xf upx-3.96-amd64_linux.tar.xz
             cp upx-3.96-amd64_linux/upx bin/
