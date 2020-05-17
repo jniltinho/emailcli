@@ -26,12 +26,13 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            mkdir bin && cp -aR *amd* bin/     
+            mkdir pkg && cp -aR *amd* pkg/     
             go get -u github.com/tcnksm/ghr
-            ls bin/
-            VERSION=$(./bin/email_linux_amd64 --version)
-            CMD="-t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1}"
-            ghr ${CMD} -replace $VERSION bin/*
+            ls pkg/
+            VERSION=$(./pkg/email_linux_amd64 --version)
+            CMD="-u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1}"
+            ghr  $VERSION bin/
+            ghr ${CMD} v0.1.0 pkg/
             
 
 workflows:
