@@ -38,7 +38,7 @@ var (
 	sslCA       = kingpin.Flag("cacert", "Specify a custom CA certificate to verify against").Envar("EMAIL_CACERT").String()
 )
 
-var Version = "0.0.1"
+var Version = "v0.0.2"
 
 func main() {
 	kingpin.CommandLine.HelpFlag.Short('h')
