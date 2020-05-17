@@ -26,9 +26,8 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            ls -ila *amd*
-            mkdir bin
-            cp -aR *amd* bin/            
+            mkdir bin && cp -aR *amd* bin/     
+            go get -u github.com/tcnksm/ghr
             VERSION=$(./bin/email_linux_amd64 --version)
             CMD="-t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1}"
             ghr ${CMD} -delete ${VERSION} ./bin/
