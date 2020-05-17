@@ -26,9 +26,9 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            VERY_V=$(./email_linux_amd64 --version)
-            TAG="echo $VERY_V"
-            echo $TAG
+            ./email_linux_amd64 --version > version
+            cat version
+            TAG=$(cat version)
             mkdir pkg bin && cp -aR *amd* pkg/
             curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
             tar -xf upx-3.96-amd64_linux.tar.xz
