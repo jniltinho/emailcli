@@ -24,10 +24,10 @@ jobs:
           command: |
             make build_win EXE_NAME=email_win_amd64.exe
       - store_artifacts:
-          path: ~/project/email_linux_amd64
+          path: ~/email_linux_amd64
           destination: bin/email_linux_amd64
       - store_artifacts:
-          path: ~/project/email_darwin_amd64
+          path: ~/email_darwin_amd64
           destination: bin/email_darwin_amd64
 
 
