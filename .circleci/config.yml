@@ -29,10 +29,11 @@ jobs:
             mkdir pkg && cp -aR *amd* pkg/
             curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
             tar -xf upx-3.96-amd64_linux.tar.xz
-            cp upx-3.96-amd64_linux/upx /usr/local/bin/
+            cp upx-3.96-amd64_linux/upx bin/
             rm -rf upx-3.96-amd64_linux upx-3.96-amd64_linux.tar.xz
-            upx pkg/email_linux_amd64
-            upx pkg/email_win_amd64.exe
+            bin/upx pkg/email_linux_amd64
+            bin/upx pkg/email_win_amd64.exe
+            bin/upx pkg/email_darwin_amd64
             go get -u github.com/tcnksm/ghr
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${TAG_VERSION} ./pkg/
             
