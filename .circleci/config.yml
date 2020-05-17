@@ -12,6 +12,7 @@ jobs:
           name: Build (linux)
           command: |
             make build
+            echo "export VERSION=$(./email_linux_amd64 --version)" >> $BASH_ENV
       - run:
           name: Test
           command: make test
@@ -35,7 +36,8 @@ jobs:
             bin/upx pkg/email_win_amd64.exe
             bin/upx pkg/email_darwin_amd64
             go get -u github.com/tcnksm/ghr
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${TAG_VERSION} ./pkg/
+            echo ${VERSION}
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./pkg/
             
 
 workflows:
