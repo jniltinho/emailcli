@@ -11,7 +11,14 @@ command line interface.
 
 ## Install
 
-    go get github.com/wrouesnel/emailcli
+```
+git clone https://github.com/jniltinho/emailcli.git
+cd emailcli
+make build
+make build_win
+make build_mac
+make build_freebsd
+```
 
 ## Usage
 
