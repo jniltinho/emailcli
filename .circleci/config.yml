@@ -30,7 +30,8 @@ jobs:
             go get -u github.com/tcnksm/ghr
             ls pkg/
             TAG=$(pkg/email_linux_amd64 --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete $TAG ./pkg/
+            VER=$(echo $TAG)
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete $VER ./pkg/
             
 
 workflows:
