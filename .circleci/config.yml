@@ -23,6 +23,16 @@ jobs:
           name: Build (win)
           command: |
             make build_win
+      - run:
+          name: "Publish Release on GitHub"
+          command: |
+            ls -ila
+            go get github.com/tcnksm/ghr
+            VERSION=$(./email_linux_amd64 --version)
+            echo "${GITHUB_TOKEN} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_PROJECT_REPONAME} ${CIRCLE_SHA1} ${VERSION}"
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} *amd64*
+            
+            
       - store_artifacts:
           path: ~/project/email_linux_amd64
           destination: bin/email_linux_amd64
@@ -30,29 +40,12 @@ jobs:
           path: ~/project/email_darwin_amd64
           destination: bin/email_darwin_amd64
       - store_artifacts:
-          path: ~/project/email_win_amd64
-          destination: bin/email_win_amd64
-
-  publish:
-    docker:
-      - image: circleci/golang:1.14
-    steps:
-      - attach_workspace:
-          at: ./bin/
-      - run:
-          name: "Publish Release on GitHub"
-          command: |
-            ls -ila
-            ls -ila ./bin/
-            bin/email_linux_amd64 --version
-            go get github.com/tcnksm/ghr
-            VERSION=$(bin/email_linux_amd64 --version)
-            echo "${GITHUB_TOKEN} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_PROJECT_REPONAME} ${CIRCLE_SHA1} ${VERSION}"
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./artifacts/
+          path: ~/project/email_win_amd64.exe
+          destination: bin/email_win_amd64.exe
+            
 
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - publish
