@@ -30,8 +30,8 @@ jobs:
             go get -u github.com/tcnksm/ghr
             ls pkg/
             VERSION=$(./pkg/email_linux_amd64 --version)
-            CMD="-u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1}"
-            ghr ${CMD} v0.1.0 pkg/
+            CMD="-u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -replace"
+            ghr ${CMD} ${VERSION} pkg/
             
 
 workflows:
