@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Build (Linux 64Bits)
           command: |
-            GOOS=linux GOARCH=amd64 make EXE_NAME=email-cli_linux  
+            GOOS=linux GOARCH=amd64 make EXE_NAME=email-cli_linux
       - run:
           name: Build (FreeBSD 64Bits)
           command: |
@@ -35,7 +35,7 @@ jobs:
             tar -xf upx-3.96-amd64_linux.tar.xz
             cp upx-3.96-amd64_linux/upx bin/
             rm -rf upx-3.96-amd64_linux upx-3.96-amd64_linux.tar.xz
-            bin/upx pkg/email-cli*
+            bin/upx pkg/email-cli_win.exe pkg/email-cli_darwin pkg/email-cli_linux
             go get -u github.com/tcnksm/ghr
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${TAG_VERSION} ./pkg/
             
