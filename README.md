@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/wrouesnel/emailcli.svg?branch=master)](https://travis-ci.org/wrouesnel/emailcli)
-[![Go Report Card](https://goreportcard.com/badge/github.com/wrouesnel/emailcli)](https://goreportcard.com/report/github.com/wrouesnel/emailcli)
+[![CircleCI](https://circleci.com/gh/jniltinho/emailcli.svg?style=shield)](https://circleci.com/gh/jniltinho/emailcli)
 
 # Emailcli
 
