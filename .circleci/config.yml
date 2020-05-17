@@ -11,7 +11,7 @@ jobs:
       - run:
           name: Build (linux)
           command: |
-            make build EXE_NAME=linux_amd64
+            make build
             pwd
             ls -ila
       - run:
@@ -20,13 +20,13 @@ jobs:
       - run:
           name: Build (mac)
           command: |
-            make build_mac EXE_NAME=darwin_amd64
+            make build_mac
             pwd
             ls -ila
       - run:
           name: Build (win)
           command: |
-            make build_win EXE_NAME=win_amd64.exe
+            make build_win
       - store_artifacts:
           path: ~/project/email_linux_amd64
           destination: bin/email_linux_amd64
