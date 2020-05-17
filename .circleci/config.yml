@@ -31,7 +31,7 @@ jobs:
             ls bin/
             VERSION=$(./bin/email_linux_amd64 --version)
             CMD="-t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1}"
-            ghr ${CMD} -replace -delete ${VERSION} bin/
+            ghr ${CMD} -replace -delete $VERSION bin/
             
 
 workflows:
