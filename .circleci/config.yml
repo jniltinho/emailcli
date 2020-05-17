@@ -28,7 +28,8 @@ jobs:
           command: |
             echo 'export VERY_V=$(./email_linux_amd64 --version)' >> $BASH_ENV
             source $BASH_ENV
-            TAG="echo ${VERY_V}"
+            TAG="echo $VERY_V"
+            echo $TAG
             mkdir pkg bin && cp -aR *amd* pkg/
             curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
             tar -xf upx-3.96-amd64_linux.tar.xz
