@@ -29,8 +29,9 @@ jobs:
             mkdir pkg && cp -aR *amd* pkg/     
             go get -u github.com/tcnksm/ghr
             ls pkg/
-            VERSION=$(./pkg/email_linux_amd64 --version)
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./pkg/
+            TAG=$(./pkg/email_linux_amd64 --version)
+            echo $TAG
+            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${TAG} ./pkg/
             
 
 workflows:
