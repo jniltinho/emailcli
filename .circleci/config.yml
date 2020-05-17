@@ -29,9 +29,8 @@ jobs:
       - store_artifacts:
           path: ~/project/email_darwin_amd64
           destination: bin/email_darwin_amd64
-       - store_artifacts:
-          path: ~/project/email_win_amd64.exe
-          destination: bin/email_win_amd64.exe
+
+
 workflows:
   version: 2
   build_and_test:
