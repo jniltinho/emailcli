@@ -12,6 +12,8 @@ jobs:
           name: Build (linux)
           command: |
             make build EXE_NAME=email_linux_amd64
+            pwd
+            ls -ila
       - run:
           name: Test
           command: make test
