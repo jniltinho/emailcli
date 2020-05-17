@@ -1,11 +1,21 @@
 
 GO_SRC := $(shell find -type f -name "*.go")
+EXE_NAME=email
 
-all: vet test email
+all: vet test build
 
 # Simple go build
-email: $(GO_SRC)
-	CGO_ENABLED=0 GOOS=linux go build -a -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" -o email .
+build: $(GO_SRC)
+	CGO_ENABLED=0 GOOS=linux go build -a -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" -o $(EXE_NAME)_linux_amd64 .
+		
+build_win: $(GO_SRC)
+	CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" -o $(EXE_NAME)_win_amd64.exe .	
+
+build_mac: $(GO_SRC)
+	CGO_ENABLED=0 GOOS=darwin go build -a -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" -o $(EXE_NAME)_darwin_amd64 .
+
+build_freebsd: $(GO_SRC)
+	CGO_ENABLED=0 GOOS=freebsd GOARCH=amd64 go build -a -ldflags "-extldflags '-static' -X main.Version=$(shell git describe --long --dirty)" -o $(EXE_NAME)_freebsd_amd64 .
 
 vet:
 	go vet .
@@ -13,4 +23,4 @@ vet:
 test:
 	go test -v .
 
-.PHONY: test vet
+.PHONY: test vet build build_win build_mac build_freebsd
