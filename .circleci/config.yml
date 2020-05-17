@@ -12,7 +12,6 @@ jobs:
           name: Build (linux)
           command: |
             make build
-            echo "export VERSION=$(./email_linux_amd64 --version)" >> $BASH_ENV
       - run:
           name: Test
           command: make test
@@ -27,6 +26,8 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
+            echo "export VERSION=$(./email_linux_amd64 --version)" >> $BASH_ENV
+            echo ${VERSION}
             mkdir pkg bin && cp -aR *amd* pkg/
             curl -skLO https://github.com/upx/upx/releases/download/v3.96/upx-3.96-amd64_linux.tar.xz
             tar -xf upx-3.96-amd64_linux.tar.xz
@@ -36,7 +37,6 @@ jobs:
             bin/upx pkg/email_win_amd64.exe
             bin/upx pkg/email_darwin_amd64
             go get -u github.com/tcnksm/ghr
-            echo ${VERSION}
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./pkg/
             
 
