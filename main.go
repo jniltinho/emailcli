@@ -1,21 +1,21 @@
 package main
 
 import (
-	"fmt"
-	"os"
-
 	"crypto/tls"
 	"crypto/x509"
-	"github.com/jordan-wright/email"
-	"gopkg.in/alecthomas/kingpin.v2"
+	"fmt"
 	"io/ioutil"
 	"net"
 	"net/smtp"
+	"os"
+
+	"github.com/jordan-wright/email"
+	"gopkg.in/alecthomas/kingpin.v2"
 )
 
 var (
-	username = kingpin.Flag("username", "Username to authenticate to the SMTP server with").Envar("EMAIL_USERNAME").String()
-	password = kingpin.Flag("password", "Password to authenticate to the SMTP server with").Envar("EMAIL_PASSWORD").String()
+	username = kingpin.Flag("username", "Username to authenticate to the SMTP server with").Envar("EMAIL_USERNAME").Short('u').String()
+	password = kingpin.Flag("password", "Password to authenticate to the SMTP server with").Envar("EMAIL_PASSWORD").Short('p').String()
 
 	//usetls = kingpin.Flag("use-tls", "Use TLS to authenticate").Envar("EMAIL_USETLS").Bool()
 	host = kingpin.Flag("host", "Hostname").Envar("EMAIL_HOST").String()
@@ -28,17 +28,17 @@ var (
 	subject = kingpin.Flag("subject", "Subject line of email.").Envar("EMAIL_SUBJECT").String()
 	body    = kingpin.Flag("body", "Body of email. Read from stdin if blank.").Envar("EMAIL_BODY").String()
 
-	from = kingpin.Flag("from", "From address for email").Envar("EMAIL_FROM").String()
+	from = kingpin.Flag("from", "From address for email").Envar("EMAIL_FROM").Short('f').String()
 	to   = kingpin.Arg("to", "Email recipients").Strings()
 
-	timeout  = kingpin.Flag("timeout", "Timeout for mail sending").Envar("EMAIL_TIMEOUT").Duration()
+	timeout  = kingpin.Flag("timeout", "Timeout for mail sending").Envar("EMAIL_TIMEOUT").Short('t').Duration()
 	poolsize = kingpin.Flag("concurrent-sends", "Max concurrent email send jobs").Envar("EMAIL_CONCURRENT_SENDS").Default("1").Int()
 
 	sslInsecure = kingpin.Flag("insecure-skip-verify", "Disable TLS certificate authentication").Envar("EMAIL_INSECURE").Default("false").Bool()
 	sslCA       = kingpin.Flag("cacert", "Specify a custom CA certificate to verify against").Envar("EMAIL_CACERT").String()
 )
 
-var Version = "0.0.0-dev"
+var Version = "0.0.1"
 
 func main() {
 	kingpin.CommandLine.HelpFlag.Short('h')
@@ -47,6 +47,10 @@ func main() {
 
 	if *timeout == 0 {
 		*timeout = -1
+	}
+
+	if *from == "" {
+		*from = *username
 	}
 
 	var bodytxt []byte
