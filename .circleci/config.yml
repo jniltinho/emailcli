@@ -28,23 +28,10 @@ jobs:
           command: |
             ls -ila *amd*
             mkdir bin
-            cp -aR *amd* bin/
-            go get github.com/tcnksm/ghr
-            ./email_linux_amd64 --version
-            VERSION=v0.0.2
-            echo "${VERSION}"
-            ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} ./bin/
-            
-            
-      - store_artifacts:
-          path: ~/project/email_linux_amd64
-          destination: bin/email_linux_amd64
-      - store_artifacts:
-          path: ~/project/email_darwin_amd64
-          destination: bin/email_darwin_amd64
-      - store_artifacts:
-          path: ~/project/email_win_amd64.exe
-          destination: bin/email_win_amd64.exe
+            cp -aR *amd* bin/            
+            VERSION=$(./bin/email_linux_amd64 --version)
+            CMD="-t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1}"
+            ghr ${CMD} -delete ${VERSION} ./bin/
             
 
 workflows:
