@@ -26,8 +26,7 @@ jobs:
       - run:
           name: "Publish Release on GitHub"
           command: |
-            echo 'export VERY_V=$(./email_linux_amd64 --version)' >> $BASH_ENV
-            source $BASH_ENV
+            VERY_V=$(./email_linux_amd64 --version)
             TAG="echo $VERY_V"
             echo $TAG
             mkdir pkg bin && cp -aR *amd* pkg/
