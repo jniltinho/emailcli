@@ -28,6 +28,7 @@ jobs:
           command: |
             ls -ila
             go get github.com/tcnksm/ghr
+            ./email_linux_amd64 --version
             VERSION=$(./email_linux_amd64 --version)
             echo "${GITHUB_TOKEN} ${CIRCLE_PROJECT_USERNAME} ${CIRCLE_PROJECT_REPONAME} ${CIRCLE_SHA1} ${VERSION}"
             ghr -t ${GITHUB_TOKEN} -u ${CIRCLE_PROJECT_USERNAME} -r ${CIRCLE_PROJECT_REPONAME} -c ${CIRCLE_SHA1} -delete ${VERSION} *amd64*
