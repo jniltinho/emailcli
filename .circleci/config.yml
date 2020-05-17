@@ -12,8 +12,6 @@ jobs:
           name: Build (linux)
           command: |
             make build
-            pwd
-            ls -ila
       - run:
           name: Test
           command: make test
@@ -21,8 +19,6 @@ jobs:
           name: Build (mac)
           command: |
             make build_mac
-            pwd
-            ls -ila
       - run:
           name: Build (win)
           command: |
@@ -33,6 +29,9 @@ jobs:
       - store_artifacts:
           path: ~/project/email_darwin_amd64
           destination: bin/email_darwin_amd64
+      - store_artifacts:
+          path: ~/project/email_win_amd64
+          destination: bin/email_win_amd64
 
 
 workflows:
