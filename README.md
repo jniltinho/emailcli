@@ -8,21 +8,26 @@ be useful to me.
 This utility does exactly one thing: wrap a Golang email library in a
 command line interface.
 
-## Install
+## Install on Linux (https://github.com/jniltinho/emailcli/releases)
+
+```
+wget https://github.com/jniltinho/emailcli/releases/download/v0.0.4/email-cli_linux
+mv email-cli_linux /usr/local/bin/email-cli
+chmod +x /usr/local/bin/email-cli
+```
+
+## Build
 
 ```
 git clone https://github.com/jniltinho/emailcli.git
 cd emailcli
-make build
-make build_win
-make build_mac
-make build_freebsd
+make
 ```
 
 ## Usage
 
 ```
-email --username test@gmail.com --password somepassword \
+email-cli --username test@gmail.com --password somepassword \
     --host smtp.gmail.com --port 587 \
     --subject "Test mail" \
     --body "Test Body" test@gmail.com
@@ -32,7 +37,7 @@ For security, it also supports reading settings from environment
 variables:
 ```
 export EMAIL_PASSWORD=somepassword
-email --username test@gmail.com \
+email-cli --username test@gmail.com \
     --host smtp.gmail.com --port 587 \
     --subject "Test mail" \
     --body "Test Body" test@gmail.com
